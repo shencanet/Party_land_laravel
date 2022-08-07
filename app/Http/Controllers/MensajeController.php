@@ -3,25 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mensaje;
-use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class MessageController extends Controller
+class MensajeController extends Controller
 {
-    public function getAllMessages()
+    public function getAllMensaje()
     {
         try {
             Log::info("Getting all messages");
-            $messages = Mensaje::query()
+            $Mensajes = Mensaje::query()
                 ->get()
                 ->toArray();
 
             return response()->json([
                 'success' => true,
                 'message' => "Get all messages retrieved.",
-                'data' => $messages
+                'data' => $Mensajes
             ]);
         } catch (\Exception $exception) {
             Log::error("Error getting messages: " . $exception->getMessage());
@@ -32,22 +31,21 @@ class MessageController extends Controller
         }
     }
 
-    public function getMessageById($id)
+    public function getMensajeById($id)
     {
         try {
             Log::info("Getting message with id " . $id);
-            $message = Mensaje::query()->find($id);
-            if (!$message) {
+            $Mensaje = Mensaje::query()->find($id);
+            if (!$Mensaje) {
                 return response()->json([
                     'success' => true,
                     'message' => "Message not found",
-                    'data' => $message
-                ], 404);
+                    'data' => $Mensaje
             }
             return response()->json([
                 'success' => true,
                 'message' => "Get message by id.",
-                'data' => $message
+                'data' => $Mensaje
             ]);
         } catch (\Exception $exception) {
             Log::error("Error getting messages: " . $exception->getMessage());
@@ -75,16 +73,16 @@ class MessageController extends Controller
                     'data' => $validator->errors()
                 ], 400);
             }
-            $newMessage = new Mensaje();
-            $newMessage->message = $request->input("message");
-            $newMessage->from = $request->input("from");
-            $newMessage->party_id = $request->input("party_id");
-            $newMessage->date = $request->input("date");
-            $newMessage->save();
+            $newMensaje = new Mensaje();
+            $newMensaje->message = $request->input("message");
+            $newMensaje->from = $request->input("from");
+            $newMensaje->party_id = $request->input("party_id");
+            $newMensaje->date = $request->input("date");
+            $newMMensaje->save();
             return response()->json([
                 'success' => true,
                 'message' => "Message created.",
-                'data' => $newMessage
+                'data' => $newMensaje
             ]);
         } catch (\Exception $exception) {
             Log::error("Error creating message: " . $exception->getMessage());
@@ -115,13 +113,13 @@ class MessageController extends Controller
                     400
                 );
             };
-            $message = $request->input("message");
+            $Mensaje = $request->input("message");
             $from = $request->input("from");
             $party_id = $request->input("party_id");
             $date = $request->input("date");
 
-            $messageUpdate = Mensaje::query()->find($id);
-            if (!$messageUpdate) {
+            $MensajeUpdate = Mensaje::query()->find($id);
+            if (!$MensajeUpdate) {
                 return response()->json([
                     'success' => true,
                     'message' => "Message not found",
@@ -129,23 +127,23 @@ class MessageController extends Controller
                 ], 404);
             }
             
-            if(isset($message)){
-                $messageUpdate->message = $request->input("message");
+            if(isset($Mensaje)){
+                $MensajeUpdate->Mensaje = $request->input("message");
             }
             if(isset($from)){
-                $messageUpdate->from = $request->input("from");
+                $MensajeUpdate->from = $request->input("from");
             }
             if(isset($party_id)){
-                $messageUpdate->party_id = $request->input("party_id");
+                $MensajeUpdate->party_id = $request->input("party_id");
             }
             if(isset($date)){
-                $messageUpdate->date = $request->input("date");
+                $MensajeUpdate->date = $request->input("date");
             }
-            $messageUpdate->save();
+            $MensajeUpdate->save();
             return response()->json([
                 'success' => true,
                 'message' => "message updated succesfully",
-                'data ' => $messageUpdate
+                'data ' => $MensajeUpdate
             ], 200);
         } catch (\Exception $exception) {
             Log::error("Error updating message: " . $exception->getMessage());
@@ -162,14 +160,14 @@ class MessageController extends Controller
         try{
             Log::info("Deleting message with id " . $id);
 
-            $message = Mensaje::query()
+            $Mensaje = Mensaje::query()
                 ->find($id)
                 ->delete();
                 
             return response()->json([
                 'success' => true,
                 'message' => "Message deleted succesfully",
-                'data' => $message
+                'data' => $Mensaje
             ], 200);
 
         }catch(\Exception $exception) {
