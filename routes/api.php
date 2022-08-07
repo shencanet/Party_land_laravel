@@ -28,7 +28,7 @@ Route::group(
     function() {
         Route::get('/Canal', [CanalController::class, 'getAllCanal']);
         Route::get('/Canal/{id}', [CanalController::class, 'getCanalbyId']);
-        Route::get('/Canal/game/{id}', [CanalController::class, 'getCanalbyGameId']);
+        Route::get('/Canal/game/{id}', [CanalController::class, 'getCanalbyJuegoId']);
         Route::post('/Canal', [CanalController::class, 'createCanal'])->middleware('jwt.auth');
         Route::put('/Canal/{id}', [CanalController::class, 'updateCanal'])->middleware('jwt.auth');
         Route::delete('/Canal/{id}', [CanalController::class, 'deleteCanal'])->middleware('jwt.auth');

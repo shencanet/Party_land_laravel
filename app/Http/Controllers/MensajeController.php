@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mensaje;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -13,7 +14,7 @@ class MessageController extends Controller
     {
         try {
             Log::info("Getting all messages");
-            $messages = Message::query()
+            $messages = Mensaje::query()
                 ->get()
                 ->toArray();
 
@@ -35,7 +36,7 @@ class MessageController extends Controller
     {
         try {
             Log::info("Getting message with id " . $id);
-            $message = Message::query()->find($id);
+            $message = Mensaje::query()->find($id);
             if (!$message) {
                 return response()->json([
                     'success' => true,
@@ -57,7 +58,7 @@ class MessageController extends Controller
         }
     }
 
-    public function createMessage(Request $request)
+    public function createMensaje(Request $request)
     {
         try {
             Log::info("Creating message");
@@ -74,7 +75,7 @@ class MessageController extends Controller
                     'data' => $validator->errors()
                 ], 400);
             }
-            $newMessage = new Message();
+            $newMessage = new Mensaje();
             $newMessage->message = $request->input("message");
             $newMessage->from = $request->input("from");
             $newMessage->party_id = $request->input("party_id");
@@ -93,7 +94,7 @@ class MessageController extends Controller
             ], 500);
         }
     }
-    public function updateMessage($id, Request $request)
+    public function updateMensaje($id, Request $request)
     {
         try {
             Log::info("Updating message with id " . $id);
@@ -119,7 +120,7 @@ class MessageController extends Controller
             $party_id = $request->input("party_id");
             $date = $request->input("date");
 
-            $messageUpdate = Message::query()->find($id);
+            $messageUpdate = Mensaje::query()->find($id);
             if (!$messageUpdate) {
                 return response()->json([
                     'success' => true,
@@ -156,12 +157,12 @@ class MessageController extends Controller
         }
     }
 
-    public function deleteMessage($id)
+    public function deleteMensaje($id)
     {
         try{
             Log::info("Deleting message with id " . $id);
 
-            $message = Message::query()
+            $message = Mensaje::query()
                 ->find($id)
                 ->delete();
                 
