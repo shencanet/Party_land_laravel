@@ -12,43 +12,43 @@ class PartyController extends Controller
     public function getAllCanal()
     {
         try {
-            Log::info("Getting all parties");
-            $parties = Canal::query()
+            Log::info("Getting all Canal");
+            $canal = Canal::query()
                 ->get()
                 ->toArray();
 
             return response()->json([
                 'success' => true,
-                'message' => "Get all parties retrieved.",
-                'data' => $parties
+                'message' => "Get all canal retrieved.",
+                'data' => $canal
             ]);
         } catch (\Exception $exception) {
-            Log::error("Error getting parties: " . $exception->getMessage());
+            Log::error("Error getting canal: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => "Error getting parties"
+                'message' => "Error getting canal"
             ], 500);
         }
     }
     public function getCanalById($id)
     {
         try {
-            Log::info("Getting party with id " . $id);
-            $party = Canal::query()->find($id);
-            if (!$party) {
+            Log::info("Getting canal with id " . $id);
+            $canal = Canal::query()->find($id);
+            if (!$canal) {
                 return response()->json([
                     'success' => true,
                     'message' => "Party not found",
-                    'data' => $party
+                    'data' => $canal
                 ], 404);
             }
             return response()->json([
                 'success' => true,
                 'message' => "Get party by id.",
-                'data' => $party
+                'data' => $canal
             ]);
         } catch (\Exception $exception) {
-            Log::error("Error getting parties: " . $exception->getMessage());
+            Log::error("Error getting canal: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => "Error getting party"
@@ -58,11 +58,11 @@ class PartyController extends Controller
     public function createCanal(Request $request)
     {
         try {
-            Log::info("Creating party");
+            Log::info("Creating canal");
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                'game_id' => 'required|integer'
+                'canal_id' => 'required|integer'
             ]);
 
             if ($validator->fails()) {
@@ -78,31 +78,31 @@ class PartyController extends Controller
             $newParty = new Canal();
 
             $newParty->name = $request->input("name");
-            $newParty->game_id = $request->input("game_id");
+            $newParty->canal_id = $request->input("canal_id");
             $newParty->save();
 
             return response()->json([
                 'success' => true,
-                'message' => "Party created succesfully",
-                'data ' => $newParty
+                'message' => "canal created succesfully",
+                'data ' => $newcanal
             ], 200);
         } catch (\Exception $exception) {
-            Log::error("Error posting party: " . $exception->getMessage());
+            Log::error("Error posting canal: " . $exception->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => "Error posting party"
+                'message' => "Error posting canal"
             ], 500);
         }
     }
     public function updateCanal($id, Request $request)
     {
         try {
-            Log::info("Updating party with id " . $id);
+            Log::info("Updating canal with id " . $id);
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string',
-                'game_id' => 'required|integer'
+                'canal_id' => 'required|integer'
             ]);
 
             if ($validator->fails()) {
@@ -115,36 +115,36 @@ class PartyController extends Controller
                 );
             };
             $name = $request->input("name");
-            $game_id = $request->input("game_id");
+            $canal_id = $request->input("canal_id");
 
-            $party = Canal::query()->find($id);
-            if (!$party) {
+            $canal = Canal::query()->find($id);
+            if (!$canal) {
                 return response()->json([
                     'success' => true,
                     'message' => "Party not found",
-                    'data' => $party
+                    'data' => $canal
                 ], 404);
             }
             
             if(isset($name)){
-                $party->name = $request->input("name");
+                $canal->name = $request->input("name");
             }
             if(isset($game_id)){
-                $party->game_id = $request->input("game_id");
+                $canal->game_id = $request->input("canal_id");
             }
-            $party->save();
+            $canal->save();
 
             return response()->json([
                 'success' => true,
-                'message' => "Party updated succesfully",
-                'data ' => $party
+                'message' => "canal updated succesfully",
+                'data ' => $canal
             ], 200);
         } catch (\Exception $exception) {
-            Log::error("Error updating party: " . $exception->getMessage());
+            Log::error("Error updating canal: " . $exception->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => "Error updating party"
+                'message' => "Error updating canal"
             ], 500);
         }
     }
@@ -152,31 +152,31 @@ class PartyController extends Controller
     public function deleteCanal($id)
     {
         try{
-            Log::info("Deleting party with id " . $id);
+            Log::info("Deleting canal with id " . $id);
 
-            $party = Canal::query()
+            $canal = Canal::query()
                 ->find($id)
                 ->delete();
                 
             return response()->json([
                 'success' => true,
                 'message' => "Party deleted succesfully",
-                'data' => $party
+                'data' => $canal
             ], 200);
 
         }catch(\Exception $exception) {
-            Log::error("Error deleting Exception party: " . $exception->getMessage());
+            Log::error("Error deleting Exception canal: " . $exception->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => "Error deleting party"
+                'message' => "Error deleting canal"
             ], 500);
         }catch(\Throwable $exception){
-            Log::error("Error deleting Throwable party: " . $exception->getMessage());
+            Log::error("Error deleting Throwable canal: " . $exception->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => "Error deleting party"
+                'message' => "Error deleting canal"
             ], 500);
         }
     }
@@ -184,28 +184,28 @@ class PartyController extends Controller
     public function getCanalbyJuegoId($id)
     {
         try {
-            Log::info("Getting party with game id " . $id);
-            $party = Canal::query()
-                ->where('game_id', $id)
+            Log::info("Getting canal with game id " . $id);
+            $canal = Canal::query()
+                ->where('juego_id', $id)
                 ->get()
                 ->toArray();
-                if (!$party) {
+                if (!$canal) {
                     return response()->json([
                         'success' => true,
-                        'message' => "Game not found",
-                        'data' => $party
+                        'message' => "canal not found",
+                        'data' => $canal
                     ], 404);
                 }
             return response()->json([
                 'success' => true,
-                'message' => "Get party by game id.",
-                'data' => $party
+                'message' => "Get canal by canal id.",
+                'data' => $canal
             ]);
         } catch (\Exception $exception) {
             Log::error("Error getting parties: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => "Error getting party"
+                'message' => "Error getting canal"
             ], 500);
         }
     }
