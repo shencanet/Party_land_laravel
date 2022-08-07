@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class PartyController extends Controller
+class CanalController extends Controller
 {
     public function getAllCanal()
     {
@@ -38,20 +38,20 @@ class PartyController extends Controller
             if (!$canal) {
                 return response()->json([
                     'success' => true,
-                    'message' => "Party not found",
+                    'message' => "canal not found",
                     'data' => $canal
                 ], 404);
             }
             return response()->json([
                 'success' => true,
-                'message' => "Get party by id.",
+                'message' => "Get canal by id.",
                 'data' => $canal
             ]);
         } catch (\Exception $exception) {
             Log::error("Error getting canal: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => "Error getting party"
+                'message' => "Error getting canal"
             ], 500);
         }
     }
@@ -69,17 +69,17 @@ class PartyController extends Controller
                 return response()->json(
                     [
                         "success" => false,
-                        'message' => "Error creating party",
+                        'message' => "Error creating canal",
                         "message" => $validator->errors()
                     ],
                     400
                 );
             };
-            $newParty = new Canal();
+            $newcanal = new Canal();
 
-            $newParty->name = $request->input("name");
-            $newParty->canal_id = $request->input("canal_id");
-            $newParty->save();
+            $newcanal->name = $request->input("name");
+            $newcanal->canal_id = $request->input("canal_id");
+            $newcanal->save();
 
             return response()->json([
                 'success' => true,
@@ -121,7 +121,7 @@ class PartyController extends Controller
             if (!$canal) {
                 return response()->json([
                     'success' => true,
-                    'message' => "Party not found",
+                    'message' => "canal not found",
                     'data' => $canal
                 ], 404);
             }
@@ -160,7 +160,7 @@ class PartyController extends Controller
                 
             return response()->json([
                 'success' => true,
-                'message' => "Party deleted succesfully",
+                'message' => "canal deleted succesfully",
                 'data' => $canal
             ], 200);
 
