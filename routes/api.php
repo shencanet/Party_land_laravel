@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\CanalController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,21 +37,21 @@ Route::group(
 Route::group(
     [],
     function() {
-        Route::get('/Juegos', [GameController::class, 'getAllJuegos']);
-        Route::get('/Juegos/{id}', [GameController::class, 'getJuegosbyId']);
-        Route::post('/Juegos', [GameController::class, 'createJuegos'])->middleware('jwt.auth');
-        Route::put('/Juegos/{id}', [GameController::class, 'updateJuegos'])->middleware('jwt.auth');
-        Route::delete('/Juegos/{id}', [GameController::class, 'deleteJuegos'])->middleware('jwt.auth');
+        Route::get('/Juegos', [JuegoController::class, 'getAllJuegos']);
+        Route::get('/Juegos/{id}', [JuegoController::class, 'getJuegosbyId']);
+        Route::post('/Juegos', [JuegoController::class, 'createJuegos'])->middleware('jwt.auth');
+        Route::put('/Juegos/{id}', [JuegoController::class, 'updateJuegos'])->middleware('jwt.auth');
+        Route::delete('/Juegos/{id}', [JuegoController::class, 'deleteJuegos'])->middleware('jwt.auth');
     }
 );
 
 Route::group(
     [],
     function(){
-        Route::get('Mensaje', [MessageController::class, 'getAllMensaje']);
-        Route::get('Mensaje/{id}', [MessageController::class, 'getMensajebyId']);
-        Route::post('Mensaje', [MessageController::class, 'createMensaje'])->middleware('jwt.auth');
-        Route::put('Mensaje/{id}', [MessageController::class, 'updateMensaje'])->middleware('jwt.auth');
-        Route::delete('Mensaje/{id}', [MessageController::class, 'deleteMensaje'])->middleware('jwt.auth');
+        Route::get('Mensaje', [MensajeController::class, 'getAllMensaje']);
+        Route::get('Mensaje/{id}', [MensajeController::class, 'getMensajebyId']);
+        Route::post('Mensaje', [MensajeController::class, 'createMensaje'])->middleware('jwt.auth');
+        Route::put('Mensaje/{id}', [MensajeController::class, 'updateMensaje'])->middleware('jwt.auth');
+        Route::delete('Mensaje/{id}', [MensajeController::class, 'deleteMensaje'])->middleware('jwt.auth');
     }
 );
