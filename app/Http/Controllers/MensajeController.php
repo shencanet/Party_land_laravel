@@ -41,6 +41,7 @@ class MensajeController extends Controller
                     'success' => true,
                     'message' => "Message not found",
                     'data' => $Mensaje
+                ], 500);
             }
             return response()->json([
                 'success' => true,
@@ -78,7 +79,7 @@ class MensajeController extends Controller
             $newMensaje->from = $request->input("from");
             $newMensaje->party_id = $request->input("party_id");
             $newMensaje->date = $request->input("date");
-            $newMMensaje->save();
+            $newMensaje->save();
             return response()->json([
                 'success' => true,
                 'message' => "Message created.",
@@ -123,7 +124,7 @@ class MensajeController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => "Message not found",
-                    'data' => $messageUpdate
+                    'data' => $MensajeUpdate
                 ], 404);
             }
             
