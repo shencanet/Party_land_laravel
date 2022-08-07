@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Party extends Model
+class Canal extends Model
 {
     use HasFactory;
     public function users()
     {
         return $this->belongsToMany(User::class);
     }
-    public function games()
+    public function juegos()
     {
-        return $this->belongsTo(Game::class);
+        return $this->belongsTo(Juego::class);
     }
-    public function messages()
+    public function mensaje()
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Mensaje::class);
     }
 }
 
