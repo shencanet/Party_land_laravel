@@ -12,53 +12,53 @@ class JuegoController extends Controller
     public function getAllJuegos()
     {
         try {
-            Log::info("Getting all games");
-            $games = Juego::query()
+            Log::info("Getting all Juego");
+            $Juego = Juego::query()
                 ->get()
                 ->toArray();
 
             return response()->json([
                 'success' => true,
-                'message' => "Get all games retrieved.",
-                'data' => $games
+                'message' => "Get all Juegos retrieved.",
+                'data' => $Juego
             ]);
         } catch (\Exception $exception) {
-            Log::error("Error getting games: " . $exception->getMessage());
+            Log::error("Error getting Juego: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => "Error getting games"
+                'message' => "Error getting Juego"
             ], 500);
         }
     }
     public function getJuegosbyId($id)
     {
         try {
-            Log::info("Getting game with id " . $id);
-            $game = Juego::query()->find($id);
-            if (!$game) {
+            Log::info("Getting Juego with id " . $id);
+            $Juego = Juego::query()->find($id);
+            if (!$Juego) {
                 return response()->json([
                     'success' => true,
-                    'message' => "Game not found",
-                    'data' => $game
+                    'message' => "Juego not found",
+                    'data' => $Juego
                 ], 404);
             }
             return response()->json([
                 'success' => true,
-                'message' => "Get game by id.",
-                'data' => $game
+                'message' => "Get Juego by id.",
+                'data' => $Juego
             ]);
         } catch (\Exception $exception) {
-            Log::error("Error getting games: " . $exception->getMessage());
+            Log::error("Error getting Juego: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => "Error getting game"
+                'message' => "Error getting Juego"
             ], 500);
         }
     }
     public function createJuegos(Request $request)
     {
         try {
-            Log::info("Creating game");
+            Log::info("Creating Juego");
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string|max:255',
                 'thumbnail_url' => 'required|string|max:255',
@@ -67,33 +67,33 @@ class JuegoController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
-                    'message' => "Error validating game",
+                    'message' => "Error validating Juego",
                     'data' => $validator->errors()
                 ], 400);
             }
-            $newGame = new Juego();
+            $newJuego = new Juego();
 
-            $newGame->title = $request->input("title");
-            $newGame->thumbnail_url = $request->input("thumbnail_url");
-            $newGame->url = $request->input("url");
-            $newGame->save();
+            $newJuego->title = $request->input("title");
+            $newJuego->thumbnail_url = $request->input("thumbnail_url");
+            $newJuego->url = $request->input("url");
+            $newJuego->save();
             return response()->json([
                 'success' => true,
-                'message' => "Game created.",
-                'data' => $newGame
+                'message' => "Juego created.",
+                'data' => $newJuego
             ]);
         } catch (\Exception $exception) {
-            Log::error("Error creating game: " . $exception->getMessage());
+            Log::error("Error creating Juego: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => "Error creating game"
+                'message' => "Error creating Juego"
             ], 500);
         }
     }
     public function updateJuegos(Request $request, $id)
     {
         try {
-            Log::info("Updating game with id " . $id);
+            Log::info("Updating Juego with id " . $id);
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string|max:255',
                 'thumbnail_url' => 'required|string|max:255',
@@ -102,42 +102,42 @@ class JuegoController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
-                    'message' => "Error validating game",
+                    'message' => "Error validating Juego",
                     'data' => $validator->errors()
                 ], 400);
             }
-            $game = Juego::query()->find($id);
-            if (!$game) {
+            $Juego = Juego::query()->find($id);
+            if (!$Juego) {
                 return response()->json([
                     'success' => true,
-                    'message' => "Game not found",
-                    'data' => $game
+                    'message' => "Juego not found",
+                    'data' => $Juego
                 ], 404);
             }
             $title = $request->input("title");
             $thumbnail_url = $request->input("thumbnail_url");
             $url = $request->input("url");
             if(isset($title)){
-                $game->title = $request->input("title");
+                $Juego->title = $request->input("title");
             }
             if(isset($thumbnail_url)){
-                $game->thumbnail_url = $request->input("thumbnail_url");
+                $Juego->thumbnail_url = $request->input("thumbnail_url");
             }
             if(isset($url)){
-                $game->url = $request->input("url");
+                $Juego->url = $request->input("url");
             }
             
-            $game->save();
+            $Juego->save();
             return response()->json([
                 'success' => true,
-                'message' => "Game updated.",
-                'data' => $game
+                'message' => "Juego updated.",
+                'data' => $Juego
             ]);
         } catch (\Exception $exception) {
-            Log::error("Error updating game: " . $exception->getMessage());
+            Log::error("Error updating Juego: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => "Error updating game"
+                'message' => "Error updating Juego"
             ], 500);
         }
     }
@@ -145,26 +145,26 @@ class JuegoController extends Controller
     public function deleteJuegos($id)
     {
         try {
-            Log::info("Deleting game with id " . $id);
-            $game = Juego::query()->find($id);
-            if (!$game) {
+            Log::info("Deleting Juego with id " . $id);
+            $Juego = Juego::query()->find($id);
+            if (!$Juego) {
                 return response()->json([
                     'success' => true,
-                    'message' => "Game not found",
-                    'data' => $game
+                    'message' => "Juego not found",
+                    'data' => $Juego
                 ], 404);
             }
-            $game->delete();
+            $Juego->delete();
             return response()->json([
                 'success' => true,
-                'message' => "Game deleted.",
-                'data' => $game
+                'message' => "Juego deleted.",
+                'data' => $Juego
             ]);
         } catch (\Exception $exception) {
-            Log::error("Error deleting game: " . $exception->getMessage());
+            Log::error("Error deleting Juego: " . $exception->getMessage());
             return response()->json([
                 'success' => false,
-                'message' => "Error deleting game"
+                'message' => "Error deleting Juego"
             ], 500);
         }
     }
